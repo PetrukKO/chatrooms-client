@@ -3,6 +3,7 @@ import { decodeToken, isExpired } from "../services/token";
 
 function Header() {
   const [user, setUser] = useState(localStorage.getItem("token"));
+
   //displays logged user or button authorize
   function UserDisplay() {
     const token = localStorage.getItem("token");
@@ -15,21 +16,42 @@ function Header() {
       }
       const decoded = decodeToken(token);
       setUser(decoded.login);
-      return <div style={{ color: decoded.color }}>{decoded.login}</div>;
+      return (
+        <div
+          id="user-display"
+          className="inline"
+          style={{ color: decoded.color }}
+        >
+          <p>{decoded.login}</p>
+          <p>
+            <DeleteToken />
+          </p>
+        </div>
+      );
     }
-    return (
-      <div>
-        <a href="/login">
-          <button>Авторизуватися</button>
-        </a>
-      </div>
-    );
+    return;
   }
+
+  function AuthButt() {
+    if (!localStorage.getItem("token")) {
+      return (
+        <div>
+          <a className="link-button" href="/login">
+            <button className="header-button">Авторизуватися</button>
+          </a>
+        </div>
+      );
+    } else {
+      return;
+    }
+  }
+
   //appears if authorized
   function DeleteToken() {
     if (localStorage.getItem("token")) {
       return (
         <button
+          className=""
           onClick={() => {
             localStorage.removeItem("token");
             setUser(localStorage.getItem("token"));
@@ -44,19 +66,17 @@ function Header() {
 
   return (
     <div id="header">
-      <h1>Chatrooms</h1>
+      <h1 className="inline">Chatrooms</h1>
+      <UserDisplay />
       <nav id="navbar">
         <ul>
           <li>
-            <a href="http://localhost:3001/">
-              <button>На головну</button>
+            <a className="link-button" href="http://localhost:3001/">
+              <button className={"header-button inline"}>На головну</button>
             </a>
           </li>
           <li>
-            <DeleteToken />
-          </li>
-          <li>
-            <UserDisplay />
+            <AuthButt />
           </li>
         </ul>
       </nav>

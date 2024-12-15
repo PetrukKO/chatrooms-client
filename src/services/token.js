@@ -8,7 +8,6 @@ export function decodeToken(token) {
 
 export function isExpired(token) {
   const decoded = decodeToken(token);
-  console.log(decoded);
   if (Date.now() >= decoded.exp * 1000) {
     return true;
   }
@@ -17,4 +16,8 @@ export function isExpired(token) {
 
 export function getToken() {
   return localStorage.getItem("token");
+}
+
+export function removeToken() {
+  localStorage.removeItem("token");
 }

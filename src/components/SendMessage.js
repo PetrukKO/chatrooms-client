@@ -33,7 +33,7 @@ const SendMessage = (r) => {
   };
   return (
     <>
-      <p>Відправити повідомлення:</p>
+      <h4>Відправити повідомлення:</h4>
       <div id="textarea-div">
         <textarea id="textarea"></textarea>
         <button onClick={send}>{`>`}</button>

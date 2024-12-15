@@ -25,7 +25,8 @@ const Messages = ({ room }) => {
         .then((res) => res.json())
         .then((res) => {
           setMessages(res);
-        });
+        })
+        .catch((e) => console.log(e));
     }, url);
   } catch (e) {
     return <h2>Помилка при завантаженні повідомлень</h2>;
